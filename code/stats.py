@@ -1,7 +1,8 @@
 import math
 import random
 from Num import Num
-from Utils import samples
+from RX import RX
+from Utils import samples, merge, cliffsDelta, mid, div
 
 
 def erf(x):
@@ -48,3 +49,40 @@ def bootstrap(y0, z0, the):
             n += 1
     return n / the['bootstrap'] >= the['conf']
 
+
+def scottKnot(rxs, the):
+    def merges(i, j):
+        out = RX([], rxs[i].name)
+        for k in range(i, j):
+            merge(out, rxs[j])
+        return out
+
+    def same(lo, cut, hi):
+        left = merges(lo, cut)
+        right = merges(cut + 1, hi)
+        return cliffsDelta(left.has, right.has, the) and bootstrap(left.has, right.has, the)
+
+    def recurse(lo, hi, rank):
+        cut = 0
+        b4 = merges(lo, hi)
+        best = 0
+        for j in range(lo, hi):
+            if j < hi:
+                l = merges(lo, j)
+                r = merges(j + 1, hi)
+                now = (l.n * (mid(l) - mid(b4)) ** 2 + r.n * (mid(r) - mid(b4)) ** 2) / (l.n + r.n)
+                if now > best:
+                    if abs(mid(l) - mid(r)) >= cohen:
+                        cut, best = j, now
+        if cut and not same(lo, cut, hi):
+            rank = recurse(lo, cut, rank) + 1
+            rank = recurse(cut + 1, hi, rank)
+        else:
+            for i in range(lo, hi):
+                rxs[i].rank = rank
+        return rank
+
+    rxs.sort(key=lambda x: mid(x))
+    cohen = div(merges(1, len(rxs))) * the['cohen']
+    recurse(1, len(rxs), 1)
+    return rxs
