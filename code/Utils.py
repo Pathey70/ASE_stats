@@ -87,11 +87,11 @@ def show(node, what, cols, nPlaces, lvl=0):
         show(None if "right" not in node else node["right"], what, cols, nPlaces, lvl + 1)
 
 
-def cliffs_delta(ns1, ns2, the, seed=937162211):
+def cliffsDelta(ns1, ns2, the):
     if len(ns1) > 128:
-        ns1 = samples(ns1, 128, seed)
+        ns1 = samples(ns1, 128)
     if len(ns2) > 128:
-        ns2 = samples(ns2, 128, seed)
+        ns2 = samples(ns2, 128)
 
     n, gt, lt = 0, 0, 0
     for x in ns1:
@@ -107,7 +107,7 @@ def cliffs_delta(ns1, ns2, the, seed=937162211):
 
 def diffs(nums1, nums2, the):
     def func(k, nums):
-        return cliffs_delta(nums.has, nums2[k].has, the), nums.txt
+        return cliffsDelta(nums.has, nums2[k].has, the), nums.txt
 
     return kap(nums1, func)
 

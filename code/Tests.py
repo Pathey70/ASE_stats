@@ -18,7 +18,7 @@ def eg_sample(the):
         print(''.join(samples(['a', 'b', 'c', 'd', 'e'])))
 
 
-def eg_nums(the):
+def eg_num(the):
     """Tests Num"""
     n = Num([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     print(n.n, n.mu, n.sd)
@@ -42,6 +42,34 @@ def eg_bootmu(the):
         b = []
         for i in range(100):
             b.append(gaussian(mu, 1))
-        cl = cliffs_delta(a, b, the)
+        cl = cliffsDelta(a, b, the)
         bs = bootstrap(a, b, the)
         print(mu, 1, cl, bs, cl and bs)
+
+
+def eg_basic(the):
+    print("\t\ttrue", bootstrap([8, 7, 6, 2, 5, 8, 7, 3],
+                                [8, 7, 6, 2, 5, 8, 7, 3], the),
+          cliffsDelta([8, 7, 6, 2, 5, 8, 7, 3],
+                      [8, 7, 6, 2, 5, 8, 7, 3], the))
+    print("\t\tfalse", bootstrap([8, 7, 6, 2, 5, 8, 7, 3],
+                                 [9, 9, 7, 8, 10, 9, 6], the),
+          cliffsDelta([8, 7, 6, 2, 5, 8, 7, 3],
+                      [9, 9, 7, 8, 10, 9, 6], the))
+    print("\t\tfalse",
+          bootstrap([0.34, 0.49, 0.51, 0.6, .34, .49, .51, .6],
+                    [0.6, 0.7, 0.8, 0.9, .6, .7, .8, .9], the),
+          cliffsDelta([0.34, 0.49, 0.51, 0.6, .34, .49, .51, .6],
+                      [0.6, 0.7, 0.8, 0.9, .6, .7, .8, .9], the))
+
+
+def eg_pre(the):
+    print("\neg3")
+    d = 1
+    for i in range(10):
+        t1, t2 = [], []
+        for j in range(32):
+            t1.append(gaussian(10, 1))
+            t2.append(gaussian(d * 10, 1))
+        print('\t', round(d, 2), d < 1.1, bootstrap(t1, t2, the), bootstrap(t1, t1, the))
+        d += 0.05
