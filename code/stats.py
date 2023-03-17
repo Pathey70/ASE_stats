@@ -44,6 +44,7 @@ def bootstrap(y0, z0, the):
     tobs = delta(y, z)
     n = 0
     for _ in range(the['bootstrap']):
-        if delta(Num(samples(yhat)), Num(samples(zhat))) > tobs:    # No default value for number of samples?
+        if delta(Num(samples(yhat)), Num(samples(zhat))) > tobs:
             n += 1
     return n / the['bootstrap'] >= the['conf']
+

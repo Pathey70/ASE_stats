@@ -1,0 +1,4 @@
+✅PASS : eg_bootmu
+✅PASS : eg_gauss
+✅PASS : eg_nums
+✅PASS : eg_sample

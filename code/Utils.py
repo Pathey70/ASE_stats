@@ -3,7 +3,6 @@ from Main import coerce
 import os
 import random
 
-from Sym import Sym
 
 
 def rnd(n, nPlaces=2):
@@ -60,10 +59,9 @@ def cosine(a, b, c):
     return x2, y
 
 
-def samples(t, n, seed=937162211):
+def samples(t, n=None):
     if not n:
         n = len(t)
-    random.seed(seed)
     return random.choices(t, k=n)
 
 
