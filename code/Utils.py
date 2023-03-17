@@ -61,6 +61,8 @@ def cosine(a, b, c):
 
 
 def samples(t, n, seed=937162211):
+    if not n:
+        n = len(t)
     random.seed(seed)
     return random.choices(t, k=n)
 
@@ -102,7 +104,7 @@ def cliffs_delta(ns1, ns2, the, seed=937162211):
 
             elif x < y:
                 lt = lt + 1
-    return abs(lt - gt) / n <= the['cliffs']
+    return abs(lt - gt) / n <= the['cliff']
 
 
 def diffs(nums1, nums2, the):
