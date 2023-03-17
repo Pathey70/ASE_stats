@@ -60,7 +60,7 @@ def cosine(a, b, c):
     return x2, y
 
 
-def many(t, n, seed=937162211):
+def samples(t, n, seed=937162211):
     random.seed(seed)
     return random.choices(t, k=n)
 
@@ -88,14 +88,10 @@ def show(node, what, cols, nPlaces, lvl=0):
 
 
 def cliffs_delta(ns1, ns2, the, seed=937162211):
-    if len(ns1) > 256:
-        ns1 = many(ns1, 256, seed)
-    if len(ns2) > 256:
-        ns2 = many(ns2, 256, seed)
-    if len(ns1) > 10 * len(ns2):
-        ns2 = many(ns1, 10 * len(ns2), seed)
-    if len(ns2) > 10 * len(ns1):
-        ns2 = many(ns2, 10 * len(ns1), seed)
+    if len(ns1) > 128:
+        ns1 = samples(ns1, 128, seed)
+    if len(ns2) > 128:
+        ns2 = samples(ns2, 128, seed)
 
     n, gt, lt = 0, 0, 0
     for x in ns1:
@@ -106,7 +102,7 @@ def cliffs_delta(ns1, ns2, the, seed=937162211):
 
             elif x < y:
                 lt = lt + 1
-    return abs(lt - gt) / n > the['cliffs']
+    return abs(lt - gt) / n <= the['cliffs']
 
 
 def diffs(nums1, nums2, the):
