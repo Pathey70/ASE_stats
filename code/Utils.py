@@ -194,3 +194,4 @@ def selects(rule, rows):
             return r
 
     return map(get_row, rows)
+
