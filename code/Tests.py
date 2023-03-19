@@ -73,3 +73,34 @@ def eg_pre(the):
             t2.append(gaussian(d * 10, 1))
         print('\t', round(d, 2), d < 1.1, bootstrap(t1, t2, the), bootstrap(t1, t1, the))
         d += 0.05
+
+
+def eg_tiles(the):
+    rxs,a,b,c,d,e,f,g,h,j,k=[],[],[],[],[],[],[],[],[],[],[]
+    high=1001
+    for i in range(1,high):
+        a.append(gaussian(10,1))
+    for i in range(1,high):
+        b.append(gaussian(10.1,1))
+    for i in range(1,high):
+        c.append(gaussian(20,1))
+    for i in range(1,high):
+        d.append(gaussian(30,1))
+    for i in range(1,high):
+        e.append(gaussian(30.1,1))
+    for i in range(1,high):
+        f.append(gaussian(10,1))
+    for i in range(1,high):
+        g.append(gaussian(10,1))
+    for i in range(1,high):
+        h.append(gaussian(40,1))
+    for i in range(1,high):
+        j.append(gaussian(40,3))
+    for i in range(1,high):
+        k.append(gaussian(10,1))
+    for k,v in enumerate([a,b,c,d,e,f,g,h,j,k]):
+        rxs.append(RX(v,"rx"+str(k+1)))
+    rxs.sort(key=lambda x:mid(x))
+    for rx in tiles(rxs,the):
+        print("",rx.name,rx.show)
+
