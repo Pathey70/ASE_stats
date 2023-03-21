@@ -86,3 +86,36 @@ def scottKnot(rxs, the):
     cohen = div(merges(1, len(rxs))) * the['cohen']
     recurse(1, len(rxs), 1)
     return rxs
+
+
+def tiles(rxs, the):
+    huge = math.inf
+    lo, hi = huge, -math.inf
+    for rx in rxs:
+        lo, hi = min(lo, rx.has[0]), max(hi, rx.has[len(rx.has) - 1])
+    for rx in rxs:
+        t, u = rx.has, []
+
+        def of(x, most):
+            return max(1, min(x, most))
+
+        def at(x):
+            return t[of(len(t) * int(x), len(t))]
+
+        def pos(x):
+            return math.floor(of(the['width'] * (x - lo) / (hi - lo + 1E-32) // 1, the['width']))
+
+        for i in range(1, the['width'] + 1):
+            u.append(" ")
+        a, b, c, d, e = at(.1), at(.3), at(.5), at(.7), at(.9)
+        A, B, C, D, E = pos(a), pos(b), pos(c), pos(d), pos(e)
+        for i in range(A, B + 1):
+            u[i] = "-"
+        for i in range(D, E + 1):
+            u[i] = "-"
+        u[the['width']//2] = "|"
+        u[C] = "*"
+        for x in [b, c, d, e]:
+            rx.show = rx.show + ", " + f'{x:{the["Fmt"]}f}'
+        rx.show = rx.show + "}"
+    return rxs

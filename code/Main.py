@@ -3,15 +3,15 @@
 USAGE: lua stats.lua [OPTIONS] [-g ACTIONS]
   
 OPTIONS:
-  -b  --bootstrap     bootstrap value              = 512
-  -c  --cliff         cliff's delta threshold      = .4
-  -cf  --conf         conf value                   = 0.05
-  -co  --cohen        cohen value                  = .35
-  -F  --Fmt           fmt value                    = "%6.2f"
-  -w  --width         width value                  = 40
-  -g  --go            start-up action              = nothing
-  -h  --help          show help                    = False
-  -s  --seed          random number seed           = 937162211
+  -b  --bootstrap     bootstrap value                       = 512
+  -c  --cliff         cliff's delta threshold               = .4
+  -cf  --conf         conf value                            = 0.05
+  -co  --cohen        cohen value                           = .35
+  -F  --Fmt           float string formatting value         = 6.2
+  -w  --width         width value                           = 40
+  -g  --go            start-up action                       = nothing
+  -h  --help          show help                             = False
+  -s  --seed          random number seed                    = 937162211
 ACTIONS:
 """
 import getopt
