@@ -1,3 +1,41 @@
+## Instructions
+
+
+- To view all command line options run 
+    ```python3 Main.py --help True ```
+
+- To Run test cases 
+    ```python3 Main.py --go <test-name>```
+
+```python3 Main.py --go tiles```
+ 
+
+```
+Here are the list of options
+
+  
+OPTIONS:
+  -b  --bootstrap     bootstrap value                       = 512
+  -c  --cliff         cliff's delta threshold               = .4
+  -cf  --conf         conf value                            = 0.05
+  -co  --cohen        cohen value                           = .35
+  -F  --Fmt           float string formatting value         = "{:2.2f}"
+  -w  --width         width value                           = 40
+  -g  --go            start-up action                       = nothing
+  -h  --help          show help                             = False
+  -s  --seed          random number seed                    = 937162211
+ACTIONS:
+
+
+  
+
+```
+
+## To run all test cases
+
+```python3 Main.py --go  all ```
+
+## Output
 
 		true True True
 		false False False
