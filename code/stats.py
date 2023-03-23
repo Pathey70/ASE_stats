@@ -20,7 +20,7 @@ def erf(x):
 
 
 def gaussian(mu=0, sd=1):
-    return mu + sd * math.sqrt(-2 * math.log2(random.random())) * math.cos(2 * math.pi * random.random())
+    return mu + sd * math.sqrt(-2 * math.log(random.random())) * math.cos(2 * math.pi * random.random())
 
 
 def delta(i, other):
@@ -53,8 +53,8 @@ def bootstrap(y0, z0, the):
 def scottKnot(rxs, the):
     def merges(i, j):
         out = RX([], rxs[i].name)
-        for k in range(i, j):
-            merge(out, rxs[j])
+        for k in range(i, j+1):
+            out=merge(out, rxs[j])
         return out
 
     def same(lo, cut, hi):
@@ -63,10 +63,10 @@ def scottKnot(rxs, the):
         return cliffsDelta(left.has, right.has, the) and bootstrap(left.has, right.has, the)
 
     def recurse(lo, hi, rank):
-        cut = 0
+        cut = None
         b4 = merges(lo, hi)
         best = 0
-        for j in range(lo, hi):
+        for j in range(lo, hi+1):
             if j < hi:
                 l = merges(lo, j)
                 r = merges(j + 1, hi)
@@ -83,8 +83,8 @@ def scottKnot(rxs, the):
         return rank
 
     rxs.sort(key=lambda x: mid(x))
-    cohen = div(merges(1, len(rxs))) * the['cohen']
-    recurse(1, len(rxs), 1)
+    cohen = div(merges(1, len(rxs)-1)) * the['cohen']
+    recurse(1, len(rxs)-1, 1)
     return rxs
 
 
@@ -97,25 +97,29 @@ def tiles(rxs, the):
         t, u = rx.has, []
 
         def of(x, most):
-            return max(1, min(x, most))
+            return int(max(1, min(x, most)))
 
         def at(x):
-            return t[of(len(t) * int(x), len(t))]
+            return t[of(len(t) * x//1, len(t))]
 
         def pos(x):
             return math.floor(of(the['width'] * (x - lo) / (hi - lo + 1E-32) // 1, the['width']))
 
-        for i in range(1, the['width'] + 1):
+        for i in range(0, the['width'] + 1):
             u.append(" ")
         a, b, c, d, e = at(.1), at(.3), at(.5), at(.7), at(.9)
         A, B, C, D, E = pos(a), pos(b), pos(c), pos(d), pos(e)
+
         for i in range(A, B + 1):
             u[i] = "-"
         for i in range(D, E + 1):
             u[i] = "-"
+
         u[the['width']//2] = "|"
         u[C] = "*"
+
+        rx.show = rx.show + ''.join(u) + "{" + the["Fmt"].format(a)
         for x in [b, c, d, e]:
-            rx.show = rx.show + ", " + f'{x:{the["Fmt"]}f}'
+            rx.show = rx.show + ", " + the["Fmt"].format(x)
         rx.show = rx.show + "}"
     return rxs

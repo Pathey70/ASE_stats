@@ -1,7 +1,11 @@
 ✅PASS : eg_basic
 ✅PASS : eg_bootmu
+✅PASS : eg_five
 ✅PASS : eg_gauss
 ✅PASS : eg_num
+✅PASS : eg_ok
 ✅PASS : eg_pre
 ✅PASS : eg_sample
+✅PASS : eg_six
+✅PASS : eg_sk
 ✅PASS : eg_tiles

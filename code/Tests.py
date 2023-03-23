@@ -4,6 +4,8 @@ import TestEngine
 from Num import Num
 from Utils import *
 from stats import *
+import random
+from RX import RX
 
 tot = 0
 
@@ -12,6 +14,8 @@ def count(t):
     global tot
     tot = tot + len(t)
 
+def eg_ok(the,n=1):
+    random.seed(n)
 
 def eg_sample(the):
     for i in range(10):
@@ -103,3 +107,48 @@ def eg_tiles(the):
     rxs.sort(key=lambda x: mid(x))
     for rx in tiles(rxs, the):
         print("", rx.name, rx.show)
+
+def eg_sk(the):
+    rxs, a, b, c, d, e, f, g, h, j, k = [], [], [], [], [], [], [], [], [], [], []
+    high = 1001
+    for i in range(1, high):
+        a.append(gaussian(10, 1))
+    for i in range(1, high):
+        b.append(gaussian(10.1, 1))
+    for i in range(1, high):
+        c.append(gaussian(20, 1))
+    for i in range(1, high):
+        d.append(gaussian(30, 1))
+    for i in range(1, high):
+        e.append(gaussian(30.1, 1))
+    for i in range(1, high):
+        f.append(gaussian(10, 1))
+    for i in range(1, high):
+        g.append(gaussian(10, 1))
+    for i in range(1, high):
+        h.append(gaussian(40, 1))
+    for i in range(1, high):
+        j.append(gaussian(40, 3))
+    for i in range(1, high):
+        k.append(gaussian(10, 1))
+    for k, v in enumerate([a, b, c, d, e, f, g, h, j, k]):
+        rxs.append(RX(v, "rx" + str(k + 1)))
+    for rx in tiles(scottKnot(rxs,the), the):
+        print("", rx.name, rx.show)
+
+def eg_five(the):
+    temp = [RX([0.34,0.49,0.51,0.6,.34,.49,.51,.6],"rx1"),\
+            RX([0.6,0.7,0.8,0.9,.6,.7,.8,.9],"rx2"),\
+            RX([0.15,0.25,0.4,0.35,0.15,0.25,0.4,0.35],"rx3"),\
+            RX([0.6,0.7,0.8,0.9,0.6,0.7,0.8,0.9],"rx4"),\
+            RX([0.1,0.2,0.3,0.4,0.1,0.2,0.3,0.4],"rx5")]
+    for rx in tiles(scottKnot(temp,the),the):
+        print(rx.name,rx.rank,rx.show)
+
+def eg_six(the):
+    temp = [RX([101,100,99,101,99.5,101,100,99,101,99.5],"rx1"),\
+            RX([101,100,99,101,100,101,100,99,101,100],"rx2"),\
+            RX([101,100,99.5,101,99,101,100,99.5,101,99],"rx3"),\
+            RX([101,100,99,101,100,101,100,99,101,100],"rx4")]
+    for rx in tiles(scottKnot(temp,the),the):
+        print(rx.name,rx.rank,rx.show)

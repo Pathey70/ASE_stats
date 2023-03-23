@@ -7,7 +7,7 @@ OPTIONS:
   -c  --cliff         cliff's delta threshold               = .4
   -cf  --conf         conf value                            = 0.05
   -co  --cohen        cohen value                           = .35
-  -F  --Fmt           float string formatting value         = 6.2
+  -F  --Fmt           float string formatting value         = "{:2.2f}"
   -w  --width         width value                           = 40
   -g  --go            start-up action                       = nothing
   -h  --help          show help                             = False
